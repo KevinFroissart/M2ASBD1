@@ -4,6 +4,7 @@ stages:
 deploy-job:
   stage: deploy
   environment: production
+  image: admindptinfo/dc:latest
   script:
     - export VAULT_AUTH_ROLE=gitlab-ci
     - export VAULT_SERVER_URL=https://vault-dc.info.univ-lyon1.fr
