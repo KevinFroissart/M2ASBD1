@@ -6,7 +6,4 @@ deploy-job:
   environment: production
   image: admindptinfo/dc:latest
   script:
-    - export VAULT_AUTH_ROLE=gitlab-ci
-    - export VAULT_SERVER_URL=https://vault-dc.info.univ-lyon1.fr
-    - export SECRET=$(vault kv get --field=secret --mount=kv asbd-kevily/tp1/password)
-    - vault ssh -role asbd-votregroupe -mode otp -strict-host-key-checking=no ubuntu@192.168.76.125 "(cd /var/www/html && git pull && echo "$SECRET" > secret)"
+    - export VAULT_AUTH_ROLE=gitlab-ci && export VAULT_SERVER_URL=https://vault-dc.info.univ-lyon1.fr && export SECRET=$(vault kv get --field=secret --mount=kv asbd-kevily/tp1/password) &&vault ssh -role asbd-votregroupe -mode otp -strict-host-key-checking=no ubuntu@192.168.76.125 "(cd /var/www/html && git pull && echo "$SECRET" > secret)"
