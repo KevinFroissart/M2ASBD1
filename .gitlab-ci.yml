@@ -8,6 +8,6 @@ deploy-job:
   script:
     - export VAULT_AUTH_ROLE=gitlab-ci
     - export VAULT_ADDR=https://vault-dc.info.univ-lyon1.fr
+    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=asbd-kevily/tp1 jwt=$CI_JOB_JWT)"
     - export SECRET=$(vault kv get --field=secret --mount=kv asbd-kevily/tp1/password)
-    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=myproject-staging jwt=$CI_JOB_JWT)"
     - vault ssh -role asbd-votregroupe -mode otp -strict-host-key-checking=no ubuntu@192.168.76.125 "(cd /var/www/html && git pull && echo "$SECRET" > secret)"
